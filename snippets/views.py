@@ -25,8 +25,8 @@ def snippet_new(request):
     return render(request, "snippets/snippet_new.html" ,{'form':form})
 
 @login_required
-def snippet_edit(request, snippet_id):
-    snippet = get_object_or_404(Snippet, pk=snippet_id)
+def snippet_edit(request, snippets_id):
+    snippet = get_object_or_404(Snippet, pk=snippets_id)
     if snippet.created_by_id != request.user.id:
         return HttpResponseForbidden("スニペットの編集は許可されていません。")
     
@@ -36,13 +36,13 @@ def snippet_edit(request, snippet_id):
             form.save()
             return redirect('snippet_detail', snippet_id=snippet_id)    
     else:
-        form = SnippetForm()
-    return render(request, "snippets/snippet_new.html" ,{'form':form})
+        form = SnippetForm(instance=snippet)
+    return render(request, "snippets/snippet_edit.html" ,{'form':form})
 
 
 def snippet_detail(request, snippet_id):
-    snippet = get_object_or_404(Snippet, pk = snippet_id)
+    snippet = get_object_or_404(Snippet, pk=snippet_id)
     Snippet.objects.all()
-    return render(request, 'snippets/snippets_detail.html',
-    {'snippet':snippet})
+    return render(request, 'snippets/snippet_detail.html',
+        {'snippet': snippet})
 
