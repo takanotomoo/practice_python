@@ -46,3 +46,18 @@ def snippet_detail(request, snippet_id):
     return render(request, 'snippets/snippet_detail.html',
         {'snippet': snippet})
 
+'''
+# フォームを使った登録処理の流れ
+@required_http_methods(["GET", "POST"])
+def signup(request):
+    if request.method =="POST":
+        # POSTリクエストを受けとったらxxxメソッドとxxxメソッドを呼ぶ
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(・・・)
+        else:
+            # GETリクエストを受けとったらformオブジェクトを用意して、テンプレートで表示
+            form = UserCreationForm()
+        return render(request, "signup.html" ,{'form':form})
+'''
